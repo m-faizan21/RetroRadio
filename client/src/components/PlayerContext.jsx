@@ -5,9 +5,16 @@ import {songs} from "../data/songs.js";
 
 
 export const PlayerProvider = ({children}) => {
-    const [currentSong, setCurrentSong] = useState(songs[0]); // Initialize with the first song in the list
-    const [playlist, setPlaylist] = useState(songs); // Initialize with the full list of songs
-    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const savedIndex = localStorage.getItem("lastSongIndex"); // Retrieve the last played song index from localStorage
+    const initialIndex = savedIndex ? Number(savedIndex) : 0; // Default to the first song if no index is saved
+
+    const [currentSong, setCurrentSong] = useState(songs[initialIndex]); // Initialize the current song based on the saved index or default to the first song
+    const [playlist, setPlaylist] = useState(songs); // Initialize the playlist with the songs array
+    const [currentIndex, setCurrentIndex] = useState(initialIndex); // Initialize the current index based on the saved index or default to 0
+
+
+    const [shouldAutoPlay, setShouldAutoPlay] = useState(false);
 
    const playNext = () => {
         if (playlist.length === 0) return; // Exit if the playlist is empty.
@@ -19,6 +26,7 @@ export const PlayerProvider = ({children}) => {
         
         setCurrentIndex(nextIndex); // Update the current track index.
         setCurrentSong(playlist[nextIndex]); // Set the next track.
+        localStorage.setItem("lastSongIndex", nextIndex); // Save the current track index to localStorage for persistence.
     };
 
     const playPrevious = () => {
@@ -32,10 +40,11 @@ export const PlayerProvider = ({children}) => {
 
         setCurrentIndex(prevIndex);
         setCurrentSong(playlist[prevIndex]);
+        localStorage.setItem("lastSongIndex", prevIndex);
     };
 
     return (
-        <PlayerContext.Provider value={{ currentSong, setCurrentSong, playlist, setPlaylist, currentIndex, setCurrentIndex, playNext,playPrevious }}>
+        <PlayerContext.Provider value={{ currentSong, setCurrentSong, playlist, setPlaylist, currentIndex, setCurrentIndex, playNext, playPrevious, shouldAutoPlay, setShouldAutoPlay  }}>
             {children}
         </PlayerContext.Provider>
     );
