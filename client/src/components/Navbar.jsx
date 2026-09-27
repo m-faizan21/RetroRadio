@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 left-0 w-full bg-zinc-900 border-b border-zinc-800 h-16 px-8 flex items-center justify-between z-50">
+    <nav className="fixed top-0 left-0 w-full bg-zinc-900/60 backdrop-blur-md border-b border-white/10 h-16 px-8 flex items-center justify-between z-50">
       
       {/* Left Side: Brand Logo */}
-      <Link to="/" className="text-2xl font-extrabold text-green-500 tracking-wider">
-        Tapri Tunes
+      <Link to="/">
+        <img src={logo} alt="TapriTunes" className="h-14" />
       </Link>
 
       {/* Right Side: Navigation Links */}
