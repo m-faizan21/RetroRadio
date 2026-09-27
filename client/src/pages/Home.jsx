@@ -1,12 +1,12 @@
 import SongCard from '../components/SongCard';
 import { songs } from "../data/songs.js";
-import BusDriver from "../assets/BusDriver.png";
+import TapriHome from "../assets/TapriHome.png";
 
 const Home = () => {
   return (
     <div
       className="p-8 pt-24 pb-40 min-h-screen bg-cover bg-center bg-no-repeat relative"
-      style={{ backgroundImage: `url(${BusDriver})` }}
+      style={{ backgroundImage: `url(${TapriHome})` }}
     >
       <div className="absolute inset-0 bg-black/60"></div>
 
